@@ -1,35 +1,7 @@
 require("prototypes.config")
-require("prototypes.transport-belt-pictures")
+require("prototypes.colored.transport-belt-pictures")
 
 belt_entities = {}
-font_entities = {}
-
------ FONTS
-
-for i = FIRSTASCII, 158 do
-
-	letter = {
-		type = "decorative",
-		name = "ascii" .. i,
-		flags = {"placeable-off-grid", "not-on-map"},
-		selectable_in_game = false,
-		render_layer = "higher-object-under",
-		pictures =
-		{
-			filename = "__LogisticsUtility__/graphics/fonts1.png",
-			priority = "medium",
-			x = (i - FIRSTASCII) * FONT_WIDTH % FONTSHEET_WIDTH,
-			y = ((i - FIRSTASCII) * FONT_WIDTH / FONTSHEET_WIDTH) * FONT_HEIGHT,
-			scale = FONT_SCALE,
-			width = FONT_WIDTH,
-			height = FONT_HEIGHT
-		}
-	}
-
-	table.insert(font_entities, letter)
-end
-
-data:extend(font_entities)
 
 --Basic transport belt colored
 for color,rgb in pairs(COLOR_TABLE) do

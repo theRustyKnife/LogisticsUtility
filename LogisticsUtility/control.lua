@@ -2,33 +2,88 @@ require "util"
 require "defines"
 require("prototypes.config")
 
+-- Init the sign table
+function init()
+    global.signs = global.signs or {}
+    global.last_built=global.last_built or {}
+end
+script.on_init(function() init() end)
+
+-- When built sign create text string fot it.
 script.on_event(defines.events.on_built_entity, function(event)
-
-  if event.created_entity.name == "basic-transport-belt" then
-    local pos = event.created_entity.position;
-
-    game.get_surface(1).create_entity{name = "ascii75", position = {pos.x, pos.y}}
-    game.get_surface(1).create_entity{name = "ascii74", position = {pos.x + 0.2, pos.y}}
-    game.get_surface(1).create_entity{name = "ascii79", position = {pos.x + 0.4, pos.y}}
-    game.get_surface(1).create_entity{name = "ascii81", position = {pos.x + 0.6, pos.y}}
-    game.get_surface(1).create_entity{name = "ascii85", position = {pos.x + 0.8, pos.y}}
-    game.get_surface(1).create_entity{name = "ascii135", position = {pos.x + 1.05, pos.y}}
-    game.get_surface(1).create_entity{name = "ascii119", position = {pos.x + 1.25, pos.y}}
-
-    game.get_surface(1).create_entity{name = "ascii88", position = {pos.x, pos.y + 1}}
-    game.get_surface(1).create_entity{name = "ascii132", position = {pos.x + 0.2, pos.y + 1}}
-
-    create_sign_text("im The best of all man kind! abcdefghijklmonpqerstuvwxyz", pos);
-
+  if event.created_entity.name == "sign" then
+      global.last_built[event.player_index] = event.created_entity;
+      create_gui(event.player_index);
   end
-
 end)
 
-function create_sign_text(str, pos)
-  for i = 0, string.len(str) do
-    char = string.sub(str,i,i);
-    if (string.byte(char) ~= nil and string.byte(char) >= FIRSTASCII and string.byte(char) <= LASTASCII) then
-          game.get_surface(1).create_entity{name = "ascii" .. string.byte(char), position =  {pos.x + i * 0.2, pos.y + 2}}
+-- Destroy text string when the sign is destroyed
+script.on_event(defines.events.on_preplayer_mined_item, function(event)
+    if event.entity.name =='sign' then
+        for i = 1, #global.signs do
+            if event.entity == global.signs[i].sign then
+
+              for j = 1, #global.signs[i].texts do
+                global.signs[i].texts[j].destroy();
+              end
+
+              table.remove(global.signs, i);
+              break;
+            end
+        end
+		end
+end)
+
+-- CREATE SIGNPOST GUI FOR WRITING TEXT
+function create_gui(player_index)
+    if game.players[player_index].gui.center.SignPosts then
+        game.players[player_index].gui.center.SignPosts.destroy()
     end
+
+    gui = game.players[player_index].gui.center.add{type="frame", name="SignPosts", caption={"sign-gui-title"}, direction="vertical"}
+    gui.add{type='textfield',name='message'}
+    gui.add{type="button", name="write", caption={"sign-gui-button-write"}}
+end
+
+-- ON SIGNPOST GUI CLICK
+script.on_event(defines.events.on_gui_click,
+    function(event)
+        if event.element.parent.name=='SignPosts' then
+          if event.element.name=="write" then --OnClicked Write create ascii text entities
+              create_sign_text(event.element.parent.message.text, global.last_built[event.player_index].position, global.last_built[event.player_index]);
+              event.element.parent.destroy();
+          end
+      end
+  end)
+
+--TODO MAKE TEXT TO BE CENTER.
+--TODO CHECKBOX TO SHOW TEXT ON MAP
+--Function that creates text string
+ --str: string for text
+ --pos: world position for the text
+ --parent: the entity that owns this text
+function create_sign_text(str, pos, parent)
+
+  strings = {};
+
+  --TODO MAKE THESE DEPEND ON WHICH SIGN ENTITY WE ARE USING
+  spacingHoritzonal = 0.21;
+  spacingVertical = 0.5;
+  startingHeight =  0.5;
+  startingWidth = 0.9;
+  lettersPerLine = 10;
+  MAX_LENGTH = 20;
+
+  for i = 0, string.len(str) do
+    if (i > MAX_LENGTH) then break; end -- MAX LENGTH FOR THE DEFAULT SIGN. WITH FONT SIZE = 1;
+    char = string.sub(str,i,i);
+
+    if (string.byte(char) ~= nil and string.byte(char) >= FIRSTASCII and string.byte(char) <= LASTASCII) then
+          index = i - 1;
+          offsetY = math.floor(index / lettersPerLine) * spacingVertical - startingHeight;
+          offsetX = index % lettersPerLine * spacingHoritzonal - startingWidth;
+          table.insert(strings, game.get_surface(1).create_entity{name = "ascii" .. string.byte(char), position =  {pos.x + offsetX, pos.y + offsetY}});
+    end
+      table.insert(global.signs, {sign = parent, texts = strings});
   end
 end
