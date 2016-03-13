@@ -1,5 +1,6 @@
 require "util"
 require "defines"
+require "string"
 require("prototypes.config")
 
 -- Init the sign table
@@ -11,7 +12,7 @@ script.on_init(function() init() end)
 
 -- When built sign create text string fot it.
 script.on_event(defines.events.on_built_entity, function(event)
-  if event.created_entity.name == "sign" then
+  if string.find(event.created_entity.name, "sign") then
       global.last_built[event.player_index] = event.created_entity;
       create_gui(event.player_index);
   end
@@ -19,7 +20,7 @@ end)
 
 -- Destroy text string when the sign is destroyed
 script.on_event(defines.events.on_preplayer_mined_item, function(event)
-    if event.entity.name =='sign' then
+    if string.find(event.entity.name, "sign") then
         for i = 1, #global.signs do
             if event.entity == global.signs[i].sign then
 
@@ -31,7 +32,7 @@ script.on_event(defines.events.on_preplayer_mined_item, function(event)
               break;
             end
         end
-		end
+    end
 end)
 
 -- CREATE SIGNPOST GUI FOR WRITING TEXT
