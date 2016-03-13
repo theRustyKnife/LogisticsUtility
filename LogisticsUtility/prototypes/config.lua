@@ -6,11 +6,6 @@ COLOR_TABLE["purple" ]={r=0.49, g=0.40, b=0.52}
 COLOR_TABLE["blue"   ]={r=0.04, g=0.65, b=0.70}
 COLOR_TABLE["lime"   ]={r=0.56, g=0.98, b=0.52}
 
---------- SIGNS
-SIGN_TABLE = {}
-table.insert(SIGN_TABLE, "notice")
-table.insert(SIGN_TABLE, "danger")
-
 -------- FONTS
 FIRSTASCII = 33;
 LASTASCII = 175;

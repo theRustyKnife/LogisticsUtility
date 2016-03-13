@@ -12,7 +12,7 @@ script.on_init(function() init() end)
 
 -- When built sign create text string fot it.
 script.on_event(defines.events.on_built_entity, function(event)
-  if string.find(event.created_entity.name, "sign") then
+  if event.created_entity.name == "util-sign" then
       global.last_built[event.player_index] = event.created_entity;
       create_gui(event.player_index);
   end
@@ -20,7 +20,7 @@ end)
 
 -- Destroy text string when the sign is destroyed
 script.on_event(defines.events.on_preplayer_mined_item, function(event)
-    if string.find(event.entity.name, "sign") then
+    if event.entity.name == "util-sign" then
         for i = 1, #global.signs do
             if event.entity == global.signs[i].sign then
 
@@ -88,3 +88,11 @@ function create_sign_text(str, pos, parent)
       table.insert(global.signs, {sign = parent, texts = strings});
   end
 end
+
+-- TODO: Add icon to the small sign
+--[[
+function create_sign_icon(icon, pos, parent)
+   offsetX = 0.5;
+   game.get_surface(1).create_entity{ name = "icon-notice", position = {pos.x - offsetX, pos.y}};
+end
+--]]

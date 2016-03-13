@@ -2,7 +2,7 @@ sign_recipes = {}
 
 sign_recipe =  {
     type = "recipe",
-    name = "sign",
+    name = "util-sign",
     enabled = true,
     ingredients =
     {
@@ -10,14 +10,13 @@ sign_recipe =  {
       {"wood", 2},
       {"coal", 1},
     },
-    result = "sign"
+    result = "util-sign"
 }
 table.insert(sign_recipes, sign_recipe);
 
---[[
-sign_notice_recipe =  {
+sign_small_recipe =  {
     type = "recipe",
-    name = "sign-notice",
+    name = "util-sign-small",
     enabled = true,
     ingredients =
     {
@@ -25,11 +24,11 @@ sign_notice_recipe =  {
       {"wood", 1},
       {"coal", 1},
     },
-    result = "sign-notice"
+    result = "util-sign-small"
 }
-table.insert(sign_recipes, sign_notice_recipe);
---]]
-   
+table.insert(sign_recipes, sign_small_recipe);
+
+--[[   
 for _,icon in pairs(SIGN_TABLE) do
    sign = {
       type = "recipe",
@@ -41,9 +40,10 @@ for _,icon in pairs(SIGN_TABLE) do
 	    {"wood", 1},
 	    {"coal", 1},
 	 },
-      result = "sign-"..icon
+      result = "util-sign-small"
    }
    table.insert(sign_recipes, sign);
 end
-
+--]]
+   
 data:extend(sign_recipes)

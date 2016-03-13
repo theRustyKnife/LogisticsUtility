@@ -4,13 +4,13 @@ sign_entities = {}
 
 sign_entity = {
     type = "tree",
-    name = "sign",
+    name = "util-sign",
     icon = "__LogisticsUtility__/graphics/icons/sign-icon.png",
     flags = {"placeable-neutral"},
     minable =
     {
         mining_time = 1,
-        result = "sign",
+        result = "util-sign",
         count = 1
     },
     max_health = 40,
@@ -27,36 +27,34 @@ sign_entity = {
     }
 }
 table.insert(sign_entities, sign_entity)
-   
-for _,icon in pairs(SIGN_TABLE) do
-   sign = {
-      type = "tree",
-      name = "sign-"..icon,
-      icon = "__LogisticsUtility__/graphics/icons/sign-"..icon.."-icon.png",
-      flags = {"placeable-neutral"},
-      minable = {
-	 mining_time = 1,
-	 result = "sign-"..icon,
-	 count = 1
-      },
-      max_health = 40,
-      collision_mask={},
-      collision_box = {{-1.2, -1.0}, {0.2, 0.4}},
-      selection_box = {{-1.3, -1.1}, {0.3, 0.4}},
-      vehicle_impact_sound = { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
-      pictures = {
-	 {
-	    filename = "__LogisticsUtility__/graphics/entity/sign-"..icon..".png",
-	    priority = "extra-high",
-	    width = 40,
-	    height = 60,
-	    shift = {-0.5, 0.0}
-	 }
+
+sign_small_entity = {
+   type = "tree",
+   name = "util-sign-small",
+   icon = "__LogisticsUtility__/graphics/icons/sign-small-icon.png",
+   flags = {"placeable-neutral"},
+   minable = {
+      mining_time = 1,
+      result = "util-sign-small",
+      count = 1
+   },
+   max_health = 40,
+   collision_mask={},
+   collision_box = {{-1.2, -1.0}, {0.2, 0.4}},
+   selection_box = {{-1.3, -1.1}, {0.3, 0.4}},
+   vehicle_impact_sound = { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
+   pictures = {
+      {
+	 filename = "__LogisticsUtility__/graphics/entity/sign-small.png",
+	 priority = "extra-high",
+	 width = 40,
+	 height = 60,
+	 shift = {-0.5, 0.0}
       }
    }
-   table.insert(sign_entities, sign)
-end
-
+}
+table.insert(sign_entities, sign_small_entity)
+   
 ----- ASCII FONTS
 for i = FIRSTASCII, LASTASCII do
 
@@ -80,5 +78,21 @@ for i = FIRSTASCII, LASTASCII do
 
 	table.insert(sign_entities, letter)
 end
+
+notice_icon = {
+    type = "decorative",
+    name = "icon-notice",
+    flags = {"placeable-off-grid", "not-on-map"},
+    selectable_in_game = false,
+    render_layer = "higher-object-above",
+    pictures =
+    {
+      filename = "__LogisticsUtility__/graphics/entity/notice-icon.png",
+      priority = "extra-high",
+      width = 40,
+      height = 60
+    }
+}
+table.insert(sign_entities, notice_icon)
 
 data:extend(sign_entities)
