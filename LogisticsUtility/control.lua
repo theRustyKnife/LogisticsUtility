@@ -10,16 +10,23 @@ function init()
 end
 script.on_init(function() init() end)
 
--- When built sign create text string fot it.
+-- When built sign create text string fot it
 script.on_event(defines.events.on_built_entity, function(event)
+  -- TODO: Clean this up
   if event.created_entity.name == "util-sign" then
       global.last_built[event.player_index] = event.created_entity;
       create_gui(event.player_index);
+  elseif event.created_entity.name == "util-sign-small" then
+      global.last_built[event.player_index] = event.created_entity;
+      -- TODO: Open GUI for the icon seleciton
+      -- NOTE: Tempoarily add notice icon to the sign
+      create_sign_icon("notice", global.last_built[event.player_index].position, global.last_built[event.player_index]);
   end
 end)
 
 -- Destroy text string when the sign is destroyed
 script.on_event(defines.events.on_preplayer_mined_item, function(event)
+    -- TODO: Clean this up		   
     if event.entity.name == "util-sign" then
         for i = 1, #global.signs do
             if event.entity == global.signs[i].sign then
@@ -32,6 +39,14 @@ script.on_event(defines.events.on_preplayer_mined_item, function(event)
               break;
             end
         end
+    elseif event.entity.name == "util-sign-small" then
+       for i = 1, #global.signs do
+	  if event.entity == global.signs[i].sign then
+	     global.signs[i].icon.destroy();
+	     table.remove(global.signs, i);
+	     break;
+	  end
+       end
     end
 end)
 
@@ -89,10 +104,9 @@ function create_sign_text(str, pos, parent)
   end
 end
 
--- TODO: Add icon to the small sign
---[[
+-- NOTE: Tempoarily add some icon to the sign
 function create_sign_icon(icon, pos, parent)
    offsetX = 0.5;
-   game.get_surface(1).create_entity{ name = "icon-notice", position = {pos.x - offsetX, pos.y}};
+   icon_entity = game.get_surface(1).create_entity{ name = "icon-"..icon, position = {pos.x - offsetX, pos.y} };
+   table.insert(global.signs, {sign = parent, icon = icon_entity});
 end
---]]
