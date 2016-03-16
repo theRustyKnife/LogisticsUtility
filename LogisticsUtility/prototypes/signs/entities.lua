@@ -5,11 +5,11 @@ sign_entities = {}
 sign_entity = {
     type = "tree",
     name = "util-sign",
-    icon = "__LogisticsUtility__/graphics/icons/sign-icon.png",
+    icon = "__LogisticsUtility__/graphics/signs/icons/sign-icon.png",
     flags = {"placeable-neutral"},
     minable =
     {
-        mining_time = 1,
+        mining_time = 1.5,
         result = "util-sign",
         count = 1
     },
@@ -20,7 +20,7 @@ sign_entity = {
     vehicle_impact_sound =  { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
     pictures =
     {
-      filename = "__LogisticsUtility__/graphics/entity/sign.png",
+      filename = "__LogisticsUtility__/graphics/signs/entity/sign.png",
       priority = "extra-high",
       width = 80,
       height = 60
@@ -28,10 +28,37 @@ sign_entity = {
 }
 table.insert(sign_entities, sign_entity)
 
+sign_large_metal_entity = {
+    type = "tree",
+    name = "util-sign-large",
+    icon = "__LogisticsUtility__/graphics/signs/icons/sign-large-metal-icon.png",
+    flags = {"placeable-neutral"},
+    minable =
+    {
+        mining_time = 2.5,
+        result = "util-sign-large",
+        count = 1
+    },
+    max_health = 60,
+    collision_mask={},
+    collision_box = {{-2.1, -1.0}, {2.1, 0.5}},
+    selection_box = {{-2.2, -1.0}, {2.2, 0.5}},
+    vehicle_impact_sound =  { filename = "__base__/sound/car-metal-impact.ogg", volume = 1.0 },
+    pictures =
+    {
+      filename = "__LogisticsUtility__/graphics/signs/entity/sign-large-metal.png",
+      priority = "extra-high",
+      width = 160,
+      height = 60
+    }
+}
+
+table.insert(sign_entities, sign_large_metal_entity)
+
 sign_small_entity = {
    type = "tree",
    name = "util-sign-small",
-   icon = "__LogisticsUtility__/graphics/icons/sign-small-icon.png",
+   icon = "__LogisticsUtility__/graphics/signs/icons/sign-small-icon.png",
    flags = {"placeable-neutral"},
    minable = {
       mining_time = 1,
@@ -45,7 +72,7 @@ sign_small_entity = {
    vehicle_impact_sound = { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
    pictures = {
       {
-	 filename = "__LogisticsUtility__/graphics/entity/sign-small.png",
+	 filename = "__LogisticsUtility__/graphics/signs/entity/sign-small.png",
 	 priority = "extra-high",
 	 width = 40,
 	 height = 60,
@@ -54,7 +81,7 @@ sign_small_entity = {
    }
 }
 table.insert(sign_entities, sign_small_entity)
-   
+
 ----- ASCII FONTS
 for i = FIRSTASCII, LASTASCII do
 
@@ -66,7 +93,7 @@ for i = FIRSTASCII, LASTASCII do
 		render_layer = "higher-object-above",
 		pictures =
 		{
-			filename = "__LogisticsUtility__/graphics/entity/fonts.png",
+			filename = "__LogisticsUtility__/graphics/signs/entity/fonts.png",
 			priority = "medium",
 			x = (i - FIRSTASCII) * FONT_WIDTH % FONTSHEET_WIDTH,
 			y = math.floor((i - FIRSTASCII) * FONT_WIDTH / FONTSHEET_WIDTH) * FONT_HEIGHT,
@@ -87,7 +114,7 @@ notice_icon = {
     render_layer = "higher-object-above",
     pictures =
     {
-      filename = "__LogisticsUtility__/graphics/entity/notice-icon.png",
+      filename = "__LogisticsUtility__/graphics/signs/entity/notice-icon.png",
       priority = "extra-high",
       width = 40,
       height = 60

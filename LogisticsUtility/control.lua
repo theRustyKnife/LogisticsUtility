@@ -13,7 +13,7 @@ script.on_init(function() init() end)
 -- When built sign create text string fot it
 script.on_event(defines.events.on_built_entity, function(event)
   -- TODO: Clean this up
-  if event.created_entity.name == "util-sign" then
+  if event.created_entity.name == "util-sign" or event.created_entity.name == "util-sign-large" then
       global.last_built[event.player_index] = event.created_entity;
       create_gui(event.player_index);
   elseif event.created_entity.name == "util-sign-small" then
@@ -26,8 +26,8 @@ end)
 
 -- Destroy text string when the sign is destroyed
 script.on_event(defines.events.on_preplayer_mined_item, function(event)
-    -- TODO: Clean this up		   
-    if event.entity.name == "util-sign" then
+    -- TODO: Clean this up
+    if event.entity.name == "util-sign" or event.entity.name == "util-sign-large" then
         for i = 1, #global.signs do
             if event.entity == global.signs[i].sign then
 
@@ -85,10 +85,11 @@ function create_sign_text(str, pos, parent)
   --TODO MAKE THESE DEPEND ON WHICH SIGN ENTITY WE ARE USING
   spacingHoritzonal = 0.21;
   spacingVertical = 0.5;
-  startingHeight =  0.5;
-  startingWidth = 0.9;
-  lettersPerLine = 10;
-  MAX_LENGTH = 20;
+
+  startingHeight =  0.5; --0.5 parent.selection_box.rigthbottom.y
+  startingWidth = 0.9; --0.9 parent.selection_box.rigthbottom.x
+  lettersPerLine = 10; --10
+  MAX_LENGTH = 20; --20
 
   for i = 0, string.len(str) do
     if (i > MAX_LENGTH) then break; end -- MAX LENGTH FOR THE DEFAULT SIGN. WITH FONT SIZE = 1;
