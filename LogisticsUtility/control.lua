@@ -1,7 +1,7 @@
 require "util"
 require "defines"
 require "string"
-require("prototypes.config")
+require "prototypes.config"
 
 -- Init the sign table
 function init()
@@ -39,6 +39,11 @@ script.on_event(defines.events.on_preplayer_mined_item, function(event)
               break;
             end
         end
+
+        if gui ~= nil then
+          gui.destroy();
+        end
+
     elseif event.entity.name == "util-sign-small" then
        for i = 1, #global.signs do
 	  if event.entity == global.signs[i].sign then
@@ -68,12 +73,13 @@ script.on_event(defines.events.on_gui_click,
           if event.element.name=="write" then --OnClicked Write create ascii text entities
               create_sign_text(event.element.parent.message.text, global.last_built[event.player_index].position, global.last_built[event.player_index]);
               event.element.parent.destroy();
+              gui = nil;
           end
       end
   end)
 
---TODO MAKE TEXT TO BE CENTER.
---TODO CHECKBOX TO SHOW TEXT ON MAP
+--TODO MAKE TEXT TO BE CENTER?
+--TODO CHECKBOX TO SHOW TEXT ON MAP?
 --Function that creates text string
  --str: string for text
  --pos: world position for the text
@@ -82,23 +88,19 @@ function create_sign_text(str, pos, parent)
 
   strings = {};
 
-  --TODO MAKE THESE DEPEND ON WHICH SIGN ENTITY WE ARE USING
-  spacingHoritzonal = 0.21;
-  spacingVertical = 0.5;
-
-  startingHeight =  0.5; --0.5 parent.selection_box.rigthbottom.y
-  startingWidth = 0.9; --0.9 parent.selection_box.rigthbottom.x
-  lettersPerLine = 10; --10
-  MAX_LENGTH = 20; --20
+  startingHeight =  SIGN_PROPERTIES[parent.name].startingHeight;
+  startingWidth = SIGN_PROPERTIES[parent.name].startingWidth;
+  lettersPerLine = SIGN_PROPERTIES[parent.name].lettersPerLine;
+  maxLength = SIGN_PROPERTIES[parent.name].maxLength;
 
   for i = 0, string.len(str) do
-    if (i > MAX_LENGTH) then break; end -- MAX LENGTH FOR THE DEFAULT SIGN. WITH FONT SIZE = 1;
+    if (i > maxLength) then break; end
     char = string.sub(str,i,i);
 
     if (string.byte(char) ~= nil and string.byte(char) >= FIRSTASCII and string.byte(char) <= LASTASCII) then
           index = i - 1;
-          offsetY = math.floor(index / lettersPerLine) * spacingVertical - startingHeight;
-          offsetX = index % lettersPerLine * spacingHoritzonal - startingWidth;
+          offsetY = math.floor(index / lettersPerLine) * SPACING_VERTICAL - startingHeight;
+          offsetX = index % lettersPerLine * SPACING_HORIZONTAL - startingWidth;
           table.insert(strings, game.get_surface(1).create_entity{name = "ascii" .. string.byte(char), position =  {pos.x + offsetX, pos.y + offsetY}});
     end
       table.insert(global.signs, {sign = parent, texts = strings});
