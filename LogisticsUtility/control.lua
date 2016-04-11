@@ -42,6 +42,7 @@ script.on_event(defines.events.on_preplayer_mined_item, function(event)
 
         if gui ~= nil then
           gui.destroy();
+          gui = nil;
         end
 
     elseif event.entity.name == "util-sign-small" then
