@@ -3,7 +3,7 @@ sign_recipes = {}
 sign_recipe =  {
     type = "recipe",
     name = "util-sign",
-    enabled = true,
+    enabled = false,
     ingredients =
     {
       {"raw-wood", 2},
@@ -17,7 +17,7 @@ table.insert(sign_recipes, sign_recipe);
 sign_large_recipe =  {
     type = "recipe",
     name = "util-sign-large",
-    enabled = true,
+    enabled = false,
     ingredients =
     {
       {"steel-plate", 2},
@@ -31,7 +31,7 @@ table.insert(sign_recipes, sign_large_recipe);
 sign_small_recipe =  {
     type = "recipe",
     name = "util-sign-small",
-    enabled = true,
+    enabled = false,
     ingredients =
     {
       {"raw-wood", 2},

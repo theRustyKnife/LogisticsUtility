@@ -3,10 +3,11 @@ require("prototypes.config")
 sign_entities = {}
 
 sign_entity = {
-    type = "tree",
+    type = "decorative",
     name = "util-sign",
     icon = "__LogisticsUtility__/graphics/signs/icons/sign-icon.png",
     flags = {"placeable-neutral"},
+    render_layer = "lower-object",
     minable =
     {
         mining_time = 1.5,
@@ -14,7 +15,7 @@ sign_entity = {
         count = 1
     },
     max_health = 40,
-    collision_mask={},
+    collision_mask = { "item-layer", "object-layer", "player-layer", "water-tile"},
     collision_box = {{-0.9, -1.0}, {0.9, 0.5}},
     selection_box = {{-1.0, -1.0}, {1.0, 0.5}},
     vehicle_impact_sound =  { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
@@ -29,10 +30,11 @@ sign_entity = {
 table.insert(sign_entities, sign_entity)
 
 sign_large_metal_entity = {
-    type = "tree",
+    type = "decorative",
     name = "util-sign-large",
     icon = "__LogisticsUtility__/graphics/signs/icons/sign-large-metal-icon.png",
     flags = {"placeable-neutral"},
+    render_layer = "lower-object",
     minable =
     {
         mining_time = 2.5,
@@ -40,7 +42,7 @@ sign_large_metal_entity = {
         count = 1
     },
     max_health = 60,
-    collision_mask={},
+    collision_mask = { "item-layer", "object-layer", "player-layer", "water-tile"},
     collision_box = {{-2.1, -1.0}, {2.1, 0.5}},
     selection_box = {{-2.2, -1.0}, {2.2, 0.5}},
     vehicle_impact_sound =  { filename = "__base__/sound/car-metal-impact.ogg", volume = 1.0 },
@@ -56,28 +58,28 @@ sign_large_metal_entity = {
 table.insert(sign_entities, sign_large_metal_entity)
 
 sign_small_entity = {
-   type = "tree",
+   type = "decorative",
    name = "util-sign-small",
    icon = "__LogisticsUtility__/graphics/signs/icons/sign-small-icon.png",
    flags = {"placeable-neutral"},
+   render_layer = "lower-object",
    minable = {
       mining_time = 1,
       result = "util-sign-small",
       count = 1
    },
    max_health = 40,
-   collision_mask={},
+   collision_mask = { "item-layer", "object-layer", "player-layer", "water-tile"},
    collision_box = {{-1.2, -1.0}, {0.2, 0.4}},
    selection_box = {{-1.3, -1.1}, {0.3, 0.4}},
    vehicle_impact_sound = { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
-   pictures = {
-      {
-	 filename = "__LogisticsUtility__/graphics/signs/entity/sign-small.png",
-	 priority = "extra-high",
-	 width = 40,
-	 height = 60,
-	 shift = {-0.5, 0.0}
-      }
+   pictures =
+   {
+  	 filename = "__LogisticsUtility__/graphics/signs/entity/sign-small.png",
+  	 priority = "extra-high",
+  	 width = 40,
+  	 height = 60,
+  	 shift = {-0.5, 0.0}
    }
 }
 table.insert(sign_entities, sign_small_entity)
@@ -90,7 +92,7 @@ for i = FIRSTASCII, LASTASCII do
 		name = "ascii" .. i,
 		flags = {"placeable-off-grid", "not-on-map"},
 		selectable_in_game = false,
-		render_layer = "higher-object-above",
+		render_layer = "object",
 		pictures =
 		{
 			filename = "__LogisticsUtility__/graphics/signs/entity/fonts.png",
@@ -111,7 +113,7 @@ notice_icon = {
     name = "icon-notice",
     flags = {"placeable-off-grid", "not-on-map"},
     selectable_in_game = false,
-    render_layer = "higher-object-above",
+    render_layer = "object",
     pictures =
     {
       filename = "__LogisticsUtility__/graphics/signs/entity/notice-icon.png",

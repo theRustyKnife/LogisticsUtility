@@ -8,6 +8,7 @@ for color,rgb in pairs(COLOR_TABLE) do
 	belt.name = "basic-transport-belt-"..color
 	belt.icon = "__LogisticsUtility__/graphics/colored/icons/basic-transport-belt-"..color..".png"
 	belt.place_result = "basic-transport-belt-"..color
+  belt.subgroup = "colored-belts";
 	belt.order = "a-b-c"
 	table.insert(colored_belts,belt)
 end
@@ -18,6 +19,7 @@ for color,rgb in pairs(COLOR_TABLE) do
 	belt.name = "fast-transport-belt-"..color
 	belt.icon = "__LogisticsUtility__/graphics/colored/icons/fast-transport-belt-"..color..".png"
 	belt.place_result = "fast-transport-belt-"..color
+	belt.subgroup = "colored-belts";
 	belt.order = "a-b-c"
 	table.insert(colored_belts,belt)
 end
@@ -28,6 +30,7 @@ for color,rgb in pairs(COLOR_TABLE) do
 	belt.name = "express-transport-belt-"..color
 	belt.icon = "__LogisticsUtility__/graphics/colored/icons/express-transport-belt-"..color..".png"
 	belt.place_result = "express-transport-belt-"..color
+	belt.subgroup = "colored-belts";
 	belt.order = "a-b-c"
 	table.insert(colored_belts,belt)
 end
