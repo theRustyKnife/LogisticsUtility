@@ -1,7 +1,7 @@
 require "util"
 require "defines"
 require "string"
-require "prototypes.config"
+require "config"
 
 -- Init the sign table
 function init()

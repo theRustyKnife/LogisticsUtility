@@ -1,11 +1,11 @@
-require("prototypes.config")
+require("config")
 
 sign_entities = {}
 
 sign_entity = {
     type = "decorative",
     name = "util-sign",
-    icon = "__LogisticsUtility__/graphics/signs/icons/sign-icon.png",
+    icon = "__LogisticsSigns__/graphics/icons/sign-icon.png",
     flags = {"placeable-neutral"},
     render_layer = "lower-object",
     minable =
@@ -21,7 +21,7 @@ sign_entity = {
     vehicle_impact_sound =  { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
     pictures =
     {
-      filename = "__LogisticsUtility__/graphics/signs/entity/sign.png",
+      filename = "__LogisticsSigns__/graphics/entity/sign.png",
       priority = "extra-high",
       width = 80,
       height = 60
@@ -32,7 +32,7 @@ table.insert(sign_entities, sign_entity)
 sign_large_metal_entity = {
     type = "decorative",
     name = "util-sign-large",
-    icon = "__LogisticsUtility__/graphics/signs/icons/sign-large-metal-icon.png",
+    icon = "__LogisticsSigns__/graphics/icons/sign-large-metal-icon.png",
     flags = {"placeable-neutral"},
     render_layer = "lower-object",
     minable =
@@ -48,7 +48,7 @@ sign_large_metal_entity = {
     vehicle_impact_sound =  { filename = "__base__/sound/car-metal-impact.ogg", volume = 1.0 },
     pictures =
     {
-      filename = "__LogisticsUtility__/graphics/signs/entity/sign-large-metal.png",
+      filename = "__LogisticsSigns__/graphics/entity/sign-large-metal.png",
       priority = "extra-high",
       width = 160,
       height = 60
@@ -60,7 +60,7 @@ table.insert(sign_entities, sign_large_metal_entity)
 sign_small_entity = {
    type = "decorative",
    name = "util-sign-small",
-   icon = "__LogisticsUtility__/graphics/signs/icons/sign-small-icon.png",
+   icon = "__LogisticsSigns__/graphics/icons/sign-small-icon.png",
    flags = {"placeable-neutral"},
    render_layer = "lower-object",
    minable = {
@@ -75,7 +75,7 @@ sign_small_entity = {
    vehicle_impact_sound = { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
    pictures =
    {
-  	 filename = "__LogisticsUtility__/graphics/signs/entity/sign-small.png",
+  	 filename = "__LogisticsSigns__/graphics/entity/sign-small.png",
   	 priority = "extra-high",
   	 width = 40,
   	 height = 60,
@@ -95,7 +95,7 @@ for i = FIRSTASCII, LASTASCII do
 		render_layer = "object",
 		pictures =
 		{
-			filename = "__LogisticsUtility__/graphics/signs/entity/fonts.png",
+			filename = "__LogisticsSigns__/graphics/entity/fonts.png",
 			priority = "medium",
 			x = (i - FIRSTASCII) * FONT_WIDTH % FONTSHEET_WIDTH,
 			y = math.floor((i - FIRSTASCII) * FONT_WIDTH / FONTSHEET_WIDTH) * FONT_HEIGHT,
@@ -116,7 +116,7 @@ notice_icon = {
     render_layer = "object",
     pictures =
     {
-      filename = "__LogisticsUtility__/graphics/signs/entity/notice-icon.png",
+      filename = "__LogisticsSigns__/graphics/entity/notice-icon.png",
       priority = "extra-high",
       width = 40,
       height = 60

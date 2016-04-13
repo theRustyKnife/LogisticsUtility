@@ -5,7 +5,7 @@ data:extend({
         name = "color-mod",
         order = "z",
         inventory_order = "z",
-        icon = "__LogisticsUtility__/graphics/colored/sub-group-icon.png",
+        icon = "__LogisticsColoring__/graphics/sub-group-icon.png",
     },
     {
         -- row for colored belts

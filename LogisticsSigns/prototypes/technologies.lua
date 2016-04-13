@@ -2,7 +2,7 @@ data:extend({
   {
       type = "technology",
       name = "signs",
-      icon = "__LogisticsUtility__/graphics/signs/utilities-subgroup.png",
+      icon = "__LogisticsSigns__/graphics/utilities-subgroup.png",
       effects =
       {
         {

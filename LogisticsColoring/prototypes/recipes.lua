@@ -1,4 +1,4 @@
-require("prototypes.config")
+require("config")
 
 belt_recipes = {}
 

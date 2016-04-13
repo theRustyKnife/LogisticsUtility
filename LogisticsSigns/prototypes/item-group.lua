@@ -5,7 +5,7 @@ data:extend({
   	 name = "util-mod",
   	 order = "z",
   	 inventory_order = "z",
-  	 icon = "__LogisticsUtility__/graphics/signs/utilities-subgroup.png",
+  	 icon = "__LogisticsSigns__/graphics/utilities-subgroup.png",
     },
     {
   	 -- row for signs

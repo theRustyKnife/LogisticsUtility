@@ -1,10 +1,13 @@
 # LogisticsUtility
-Factorio Mod - aims to make your logistics networks more easible maintainable.
+Factorio Mod - aims is to make your logistics network more easily maintainable
 
-# Color coded belts
+# LogisticsSigns
+![Signs where you can write text](http://i.imgur.com/3vmmHB5.png)
+Bigger signs lets you to write messages.
+Small signs let you make signs with icons.
+
+# LogisticsColoring
 ![Colored belts to help you](http://i.imgur.com/kpgFJEt.png)
-Colored belts helps you to maintain your production chains
-
-# Signs
-![Signs where you can write](http://i.imgur.com/JHn4PXY.png)
-Signs lets you to write messages and tells others what is going on
+Colored belts helps you to maintain your production chains.
+Use the colored belts to mark different supply lines.
+Works great together with Color-coding mod.
