@@ -25,3 +25,19 @@ SIGN_PROPERTIES["util-sign-large"] = {
   lettersPerLine = 17,
   maxLength = 34
 }
+
+--TODO ADD SUPPORT FOR CUSTOM ICONS?
+ICONS = { "fluid", "resource" }
+ICONSGUI = {
+  "coal",
+  "copper-ore",
+  "iron-ore",
+  "stone",
+  "crude-oil",
+  "heavy-oil",
+  "light-oil",
+  "lubricant",
+  "petroleum-gas",
+  "sulfuric-acid",
+  "water"
+}

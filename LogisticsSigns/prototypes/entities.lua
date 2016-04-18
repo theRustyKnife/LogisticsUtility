@@ -108,20 +108,27 @@ for i = FIRSTASCII, LASTASCII do
 	table.insert(sign_entities, letter)
 end
 
-notice_icon = {
-    type = "decorative",
-    name = "icon-notice",
-    flags = {"placeable-off-grid", "not-on-map"},
-    selectable_in_game = false,
-    render_layer = "object",
-    pictures =
-    {
-      filename = "__LogisticsSigns__/graphics/entity/notice-icon.png",
-      priority = "extra-high",
-      width = 40,
-      height = 60
+--- ICONS
+for i, icon in pairs(ICONS) do
+  for _, fluid in pairs(data.raw[icon]) do
+
+    notice_icon = {
+        type = "decorative",
+        name = "icon-notice-" .. fluid.name,
+        flags = {"placeable-off-grid", "not-on-map"},
+        selectable_in_game = false,
+        render_layer = "object",
+        pictures =
+        {
+          filename = fluid.icon,
+          priority = "medium",
+          width = 32,
+          height = 32
+        }
     }
-}
-table.insert(sign_entities, notice_icon)
+
+    table.insert(sign_entities, notice_icon)
+  end
+end
 
 data:extend(sign_entities)

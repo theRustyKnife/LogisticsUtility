@@ -43,21 +43,20 @@ sign_small_recipe =  {
 table.insert(sign_recipes, sign_small_recipe);
 
 --[[
-for _,icon in pairs(SIGN_TABLE) do
-   sign = {
-      type = "recipe",
-      name = "sign-"..icon,
-      enabled = true,
-      ingredients =
-	 {
-	    {"raw-wood", 1},
-	    {"wood", 1},
-	    {"coal", 1},
-	 },
-      result = "util-sign-small"
-   }
-   table.insert(sign_recipes, sign);
-end
---]]
+for i, icon in pairs(ICONS) do
+    for _, fluid in pairs(data.raw[icon]) do
+      sign_small_recipe =  {
+          type = "recipe",
+          name = "icon-notice-" .. fluid.name,
+          enabled = true,
+          ingredients =
+          {
+            {"coal", 1},
+          },
+          result = "icon-notice-" .. fluid.name
+      }
+      table.insert(sign_recipes, sign_small_recipe);
+  end
+end--]]
 
 data:extend(sign_recipes)

@@ -37,19 +37,20 @@ sign_small_item =  {
 table.insert(sign_items, sign_small_item)
 
 --[[
-for _,icon in pairs(SIGN_TABLE) do
-   sign = {
+for i, icon in pairs(ICONS) do
+  for _, fluid in pairs(data.raw[icon]) do
+  sign_small_item =  {
       type = "item",
-      name = "sign-"..icon,
-      icon = "__LogisticsUtility__/graphics/icons/sign-"..icon.."-icon.png",
+      name = "icon-notice-" .. fluid.name,
+      icon = fluid.icon,
       flags = {"goes-to-quickbar"},
-      subgroup = "energy-pipe-distribution",
+      subgroup = "util-signs",
       order = "a[energy]-a[sign]",
-      place_result = "sign-"..icon,
+      place_result = "icon-notice-" .. fluid.name,
       stack_size = 50
-   }
-   table.insert(sign_items, sign)
-end
---]]
+  }
+  table.insert(sign_items, sign_small_item)
+  end
+end]]--
 
 data:extend(sign_items)

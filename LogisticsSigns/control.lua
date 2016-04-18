@@ -5,28 +5,27 @@ require "config"
 
 -- Init the sign table
 function init()
+  --Tracks the entities assigned to signs. So we can destroy them on mined event.
     global.signs = global.signs or {}
+  --Tracks last build sign. So we can add other entities to same position.
     global.last_built=global.last_built or {}
 end
 script.on_init(function() init() end)
 
 -- When built sign create text string fot it
 script.on_event(defines.events.on_built_entity, function(event)
-  -- TODO: Clean this up
   if event.created_entity.name == "util-sign" or event.created_entity.name == "util-sign-large" then
       global.last_built[event.player_index] = event.created_entity;
       create_gui(event.player_index);
   elseif event.created_entity.name == "util-sign-small" then
       global.last_built[event.player_index] = event.created_entity;
-      -- TODO: Open GUI for the icon seleciton
-      -- NOTE: Tempoarily add notice icon to the sign
-      create_sign_icon("notice", global.last_built[event.player_index].position, global.last_built[event.player_index]);
+      create_guiIcons(event.player_index);
   end
 end)
 
 -- Destroy text string when the sign is destroyed
 script.on_event(defines.events.on_preplayer_mined_item, function(event)
-    -- TODO: Clean this up
+    -- TODO: Clean this up !
     if event.entity.name == "util-sign" or event.entity.name == "util-sign-large" then
         for i = 1, #global.signs do
             if event.entity == global.signs[i].sign then
@@ -47,11 +46,16 @@ script.on_event(defines.events.on_preplayer_mined_item, function(event)
 
     elseif event.entity.name == "util-sign-small" then
        for i = 1, #global.signs do
-	  if event.entity == global.signs[i].sign then
-	     global.signs[i].icon.destroy();
-	     table.remove(global.signs, i);
-	     break;
-	  end
+      	  if event.entity == global.signs[i].sign then
+      	     global.signs[i].icon.destroy();
+      	     table.remove(global.signs, i);
+      	     break;
+      	  end
+       end
+
+       if gui ~= nil then
+         gui.destroy();
+         gui = nil;
        end
     end
 end)
@@ -67,6 +71,19 @@ function create_gui(player_index)
     gui.add{type="button", name="write", caption={"sign-gui-button-write"}}
 end
 
+-- Create gui for small sign, to create icons.
+function create_guiIcons(player_index)
+    if game.players[player_index].gui.center.SignPosts then
+        game.players[player_index].gui.center.SignPosts.destroy()
+    end
+
+    gui = game.players[player_index].gui.center.add{type="frame", name="SignPosts", caption={"sign-gui-title"}, direction="vertical"}
+    --NOTE pairs(data.raw.fluid) data throws nil error, cannot be used in control.lua, very nice :) !
+    for _, icon in pairs(ICONSGUI) do --NOTE Thats why this ICONSGUI -_-
+      gui.add{type="button", name = "icon-notice-"..icon, style="icon-notice-"..icon};
+    end
+end
+
 -- ON SIGNPOST GUI CLICK
 script.on_event(defines.events.on_gui_click,
     function(event)
@@ -76,6 +93,16 @@ script.on_event(defines.events.on_gui_click,
               event.element.parent.destroy();
               gui = nil;
           end
+
+          for _, icon in pairs(ICONSGUI) do
+            if event.element.name == "icon-notice-"..icon then
+              create_sign_icon("icon-notice-"..icon, global.last_built[event.player_index].position, global.last_built[event.player_index])
+              event.element.parent.destroy();
+              gui = nil;
+              break;
+            end
+          end
+
       end
   end)
 
@@ -108,9 +135,13 @@ function create_sign_text(str, pos, parent)
   end
 end
 
--- NOTE: Tempoarily add some icon to the sign
+--Creates icon for small sign
+ --icon: icon entity name
+ --pos: world position for the icon
+ --parent: the entity that owns this icon
 function create_sign_icon(icon, pos, parent)
    offsetX = 0.5;
-   icon_entity = game.get_surface(1).create_entity{ name = "icon-"..icon, position = {pos.x - offsetX, pos.y} };
+   offsetY = 0.25;
+   icon_entity = game.get_surface(1).create_entity{ name = icon, position = {pos.x - offsetX, pos.y - offsetY} };
    table.insert(global.signs, {sign = parent, icon = icon_entity});
 end
