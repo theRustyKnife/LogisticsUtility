@@ -110,17 +110,17 @@ end
 
 --- ICONS
 for i, icon in pairs(ICONS) do
-  for _, fluid in pairs(data.raw[icon]) do
+  for _, object in pairs(data.raw[icon]) do
 
     notice_icon = {
         type = "decorative",
-        name = "icon-notice-" .. fluid.name,
+        name = "icon-notice-" .. object.name,
         flags = {"placeable-off-grid", "not-on-map"},
         selectable_in_game = false,
         render_layer = "object",
         pictures =
         {
-          filename = fluid.icon,
+          filename = object.icon,
           priority = "medium",
           width = 32,
           height = 32

@@ -44,16 +44,16 @@ table.insert(sign_recipes, sign_small_recipe);
 
 --[[
 for i, icon in pairs(ICONS) do
-    for _, fluid in pairs(data.raw[icon]) do
+    for _, object in pairs(data.raw[icon]) do
       sign_small_recipe =  {
           type = "recipe",
-          name = "icon-notice-" .. fluid.name,
+          name = "icon-notice-" .. object.name,
           enabled = true,
           ingredients =
           {
             {"coal", 1},
           },
-          result = "icon-notice-" .. fluid.name
+          result = "icon-notice-" .. object.name
       }
       table.insert(sign_recipes, sign_small_recipe);
   end

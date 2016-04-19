@@ -38,15 +38,15 @@ table.insert(sign_items, sign_small_item)
 
 --[[
 for i, icon in pairs(ICONS) do
-  for _, fluid in pairs(data.raw[icon]) do
+  for _, object in pairs(data.raw[icon]) do
   sign_small_item =  {
       type = "item",
-      name = "icon-notice-" .. fluid.name,
-      icon = fluid.icon,
+      name = "icon-notice-" .. object.name,
+      icon = object.icon,
       flags = {"goes-to-quickbar"},
       subgroup = "util-signs",
       order = "a[energy]-a[sign]",
-      place_result = "icon-notice-" .. fluid.name,
+      place_result = "icon-notice-" .. object.name,
       stack_size = 50
   }
   table.insert(sign_items, sign_small_item)
