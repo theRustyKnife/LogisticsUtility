@@ -27,7 +27,7 @@ SIGN_PROPERTIES["util-sign-large"] = {
 }
 
 --TODO ADD SUPPORT FOR CUSTOM ICONS?
-ICONS = { "fluid", "resource", "virtual-signal" }
+ICONS = { "fluid", "item", "virtual-signal" }
 ICONSGUI = {
   "coal",
   "copper-ore",
@@ -40,6 +40,16 @@ ICONSGUI = {
   "petroleum-gas",
   "sulfuric-acid",
   "water",
+  "basic-inserter",
+  "copper-plate",
+  "iron-plate",
+  "copper-cable",
+  "iron-gear-wheel",
+  "stone-brick",
+  "sulfur",
+  "raw-wood",
+  "advanced-circuit",
+  "electronic-circuit",
   "signal-0",
   "signal-1",
   "signal-2",

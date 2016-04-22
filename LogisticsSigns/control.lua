@@ -3,6 +3,7 @@ require "defines"
 require "string"
 require "config"
 
+
 -- Init the sign table
 function init()
   --Tracks the entities assigned to signs. So we can destroy them on mined event.
@@ -62,28 +63,31 @@ function create_guiIcons(player_index)
         game.players[player_index].gui.center.SignPosts.destroy()
     end
 
-    gui = game.players[player_index].gui.center.add{type="frame", name="SignPosts", caption={"sign-gui-title-icon"}, direction="vertical"}
+    gui = game.players[player_index].gui.center.add{type="frame", name="SignPosts", caption={"sign-gui-title-icon"}, direction="vertical"};
+    guiTable = gui.add{type="table", name="icon-table", colspan = 6};
+
     --NOTE pairs(data.raw.fluid) data throws nil error, cannot be used in control.lua, very nice :) !
     for _, icon in pairs(ICONSGUI) do --NOTE Thats why this ICONSGUI -_-
-      gui.add{type="button", name = "icon-notice-"..icon, style="icon-notice-"..icon};
+      guiTable.add{type="button", name = "icon-notice-"..icon, style="icon-notice-"..icon};
     end
 end
 
 -- ON SIGNPOST GUI CLICK
 script.on_event(defines.events.on_gui_click,
     function(event)
-        if event.element.parent.name=='SignPosts' then
+        if event.element.parent.name == 'SignPosts' then
           if event.element.name=="write" then --OnClicked Write create ascii text entities
               create_sign_text(event.element.parent.message.text, global.last_built[event.player_index].position, global.last_built[event.player_index]);
               event.element.parent.destroy();
               gui = nil;
               return;
           end
-
+        end
+        if event.element.parent.name == 'icon-table' then
           for _, icon in pairs(ICONSGUI) do
             if event.element.name == "icon-notice-"..icon then
               create_sign_icon("icon-notice-"..icon, global.last_built[event.player_index].position, global.last_built[event.player_index])
-              event.element.parent.destroy();
+              event.element.parent.parent.destroy();
               gui = nil;
               break;
             end
