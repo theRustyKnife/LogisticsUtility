@@ -75,6 +75,7 @@ end
 -- ON SIGNPOST GUI CLICK
 script.on_event(defines.events.on_gui_click,
     function(event)
+      if event.element.parent then
         if event.element.parent.name == 'SignPosts' then
           if event.element.name=="write" then --OnClicked Write create ascii text entities
               create_sign_text(event.element.parent.message.text, global.last_built[event.player_index].position, global.last_built[event.player_index]);
@@ -93,6 +94,7 @@ script.on_event(defines.events.on_gui_click,
             end
           end
       end
+    end
   end)
 
 --TODO MAKE TEXT TO BE CENTER?
