@@ -1,5 +1,7 @@
+local icons = {}
 for i, icon in pairs(ICONS) do
   for _, object in pairs(data.raw[icon]) do
+    table.insert(icons, object.name)
     data.raw["gui-style"].default["icon-notice-" .. object.name] =
     {
         type = "button_style",
@@ -50,3 +52,11 @@ for i, icon in pairs(ICONS) do
     }
   end
 end
+
+data:extend({{
+    type = "flying-text",
+    name = "SIGNPOST_ICONS",
+    time_to_live = 0,
+    speed = 1,
+    order = serpent.dump(icons)
+}})

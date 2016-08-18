@@ -5,8 +5,8 @@ belt_entities = {}
 
 --Basic transport belt colored
 for color,rgb in pairs(COLOR_TABLE) do
-	belt = util.table.deepcopy(data.raw["transport-belt"]["basic-transport-belt"])
-	belt.name = "basic-transport-belt-"..color
+	belt = util.table.deepcopy(data.raw["transport-belt"]["transport-belt"])
+	belt.name = "transport-belt-"..color
 	belt.icon = "__LogisticsColoring__/graphics/icons/basic-transport-belt-"..color..".png"
 
 	belt.belt_horizontal =

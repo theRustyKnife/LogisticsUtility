@@ -1,6 +1,6 @@
 # LogisticsUtility
 Factorio Mods - aim is to make your logistics networks more easily maintainable.
-[Forum topic - [MOD 0.12.X] LogisticsUtility](https://forums.factorio.com/viewtopic.php?f=92&t=21277)
+[Forum topic - [MOD 0.13.X] LogisticsUtility](https://forums.factorio.com/viewtopic.php?f=92&t=21277)
 
 ## LogisticsSigns
 ![Signs where you can write text](http://i.imgur.com/3vmmHB5.png)

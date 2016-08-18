@@ -4,10 +4,10 @@ colored_belts = {}
 
 --Basic transport belts colored
 for color,rgb in pairs(COLOR_TABLE) do
-	belt = util.table.deepcopy(data.raw["item"]["basic-transport-belt"])
-	belt.name = "basic-transport-belt-"..color
+	belt = util.table.deepcopy(data.raw["item"]["transport-belt"])
+	belt.name = "transport-belt-"..color
 	belt.icon = "__LogisticsColoring__/graphics/icons/basic-transport-belt-"..color..".png"
-	belt.place_result = "basic-transport-belt-"..color
+	belt.place_result = "transport-belt-"..color
   belt.subgroup = "colored-belts";
 	belt.order = "a-b-c"
 	table.insert(colored_belts,belt)

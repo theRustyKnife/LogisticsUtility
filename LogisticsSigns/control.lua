@@ -1,8 +1,8 @@
 require "util"
-require "defines"
 require "string"
 require "config"
 
+global.icons = nil
 
 -- Init the sign table
 function init()
@@ -10,6 +10,10 @@ function init()
     global.signs = global.signs or {}
   --Tracks last build sign. So we can add other entities to same position.
     global.last_built=global.last_built or {}
+
+    if global.icons == nil then
+      global.icons = loadstring(game.entity_prototypes["SIGNPOST_ICONS"].order)()
+    end
 end
 script.on_init(function() init() end)
 
@@ -63,11 +67,10 @@ function create_guiIcons(player_index)
         game.players[player_index].gui.center.SignPosts.destroy()
     end
 
-    gui = game.players[player_index].gui.center.add{type="frame", name="SignPosts", caption={"sign-gui-title-icon"}, direction="vertical"};
-    guiTable = gui.add{type="table", name="icon-table", colspan = 6};
+    gui = game.players[player_index].gui.center.add{type="frame", name="SignPosts", caption={"sign-gui-title-icon"}, direction="horizontal"};
+    guiTable = gui.add{type="table", name="icon-table", colspan = math.ceil(#global.icons / 10)};
 
-    --NOTE pairs(data.raw.fluid) data throws nil error, cannot be used in control.lua, very nice :) !
-    for _, icon in pairs(ICONSGUI) do --NOTE Thats why this ICONSGUI -_-
+    for _, icon in pairs(global.icons) do
       guiTable.add{type="button", name = "icon-notice-"..icon, style="icon-notice-"..icon};
     end
 end
@@ -76,29 +79,30 @@ end
 script.on_event(defines.events.on_gui_click,
     function(event)
       if event.element.parent then
-        if event.element.parent.name == 'SignPosts' then
-          if event.element.name=="write" then --OnClicked Write create ascii text entities
-              create_sign_text(event.element.parent.message.text, global.last_built[event.player_index].position, global.last_built[event.player_index]);
-              event.element.parent.destroy();
-              gui = nil;
-              return;
-          end
-        end
-        if event.element.parent.name == 'icon-table' then
-          for _, icon in pairs(ICONSGUI) do
-            if event.element.name == "icon-notice-"..icon then
-              create_sign_icon("icon-notice-"..icon, global.last_built[event.player_index].position, global.last_built[event.player_index])
-              event.element.parent.parent.destroy();
-              gui = nil;
-              break;
+          if event.element.parent.name == 'SignPosts' then
+            if event.element.name=="write" then --OnClicked Write create ascii text entities
+                create_sign_text(event.element.parent.message.text, global.last_built[event.player_index].position, global.last_built[event.player_index]);
+                event.element.parent.destroy();
+                gui = nil;
+                return;
             end
           end
+          if event.element.parent.name == 'icon-table' then
+            for _, icon in pairs(global.icons) do
+              if event.element.name == "icon-notice-"..icon then
+                create_sign_icon("icon-notice-"..icon, global.last_built[event.player_index].position, global.last_built[event.player_index])
+                event.element.parent.parent.destroy();
+                gui = nil;
+                break;
+              end
+            end
+        end
       end
-    end
   end)
 
 --TODO MAKE TEXT TO BE CENTER?
 --TODO CHECKBOX TO SHOW TEXT ON MAP?
+--TODO Kerning fix matrix for each letter (spacing) so that the text looks more normal.
 --Function that creates text string
  --str: string for text
  --pos: world position for the text
@@ -120,7 +124,7 @@ function create_sign_text(str, pos, parent)
           index = i - 1;
           offsetY = math.floor(index / lettersPerLine) * SPACING_VERTICAL - startingHeight;
           offsetX = index % lettersPerLine * SPACING_HORIZONTAL - startingWidth;
-          table.insert(strings, game.get_surface(1).create_entity{name = "ascii" .. string.byte(char), position =  {pos.x + offsetX, pos.y + offsetY}});
+          table.insert(strings, game.surfaces[1].create_entity{name = "ascii" .. string.byte(char), position =  {pos.x + offsetX, pos.y + offsetY}});
     end
       table.insert(global.signs, {sign = parent, objects = strings});
   end
@@ -133,6 +137,6 @@ end
 function create_sign_icon(icon, pos, parent)
    offsetX = 0.5;
    offsetY = 0.25;
-   icon_entity = game.get_surface(1).create_entity{ name = icon, position = {pos.x - offsetX, pos.y - offsetY} };
+   icon_entity = game.surfaces[1].create_entity{ name = icon, position = {pos.x - offsetX, pos.y - offsetY} };
    table.insert(global.signs, {sign = parent, objects = {icon_entity}});
 end
