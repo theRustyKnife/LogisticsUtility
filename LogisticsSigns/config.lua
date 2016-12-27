@@ -14,13 +14,13 @@ SPACING_VERTICAL = 0.5;
 -- SIGNS
 SIGN_PROPERTIES = {}
 SIGN_PROPERTIES["util-sign"] = {
-  startingHeight = 0.5,
+  startingHeight = 1.1,
   startingWidth = 0.95,
   lettersPerLine = 8,
   maxLength = 16
 }
 SIGN_PROPERTIES["util-sign-large"] = {
-  startingHeight = 0.5,
+  startingHeight = 1,
   startingWidth = 1.95,
   lettersPerLine = 17,
   maxLength = 34

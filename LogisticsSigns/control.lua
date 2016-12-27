@@ -135,8 +135,8 @@ end
  --pos: world position for the icon
  --parent: the entity that owns this icon
 function create_sign_icon(icon, pos, parent)
-   offsetX = 0.5;
-   offsetY = 0.25;
+   offsetX = 0;
+   offsetY = 0.75;
    icon_entity = game.surfaces[1].create_entity{ name = icon, position = {pos.x - offsetX, pos.y - offsetY} };
    table.insert(global.signs, {sign = parent, objects = {icon_entity}});
 end
