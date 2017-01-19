@@ -35,7 +35,7 @@ script.on_event(defines.events.on_preplayer_mined_item, function(event)
             if event.entity == global.signs[i].sign then
 
               for j = 1, #global.signs[i].objects do
-                global.signs[i].objects[j].destroy();
+                if global.signs[i].objects[j].valid then global.signs[i].objects[j].destroy(); end
               end
 
               table.remove(global.signs, i);
