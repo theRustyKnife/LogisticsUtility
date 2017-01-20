@@ -3,11 +3,11 @@ require("config")
 sign_entities = {}
 
 sign_entity = {
-    type = "decorative",
+    type = "simple-entity",
     name = "util-sign",
     icon = "__LogisticsSigns__/graphics/icons/sign-icon.png",
     flags = {"placeable-neutral"},
-    render_layer = "lower-object",
+    render_layer = "object",
     minable =
     {
         mining_time = 1.5,
@@ -16,7 +16,7 @@ sign_entity = {
     },
     max_health = 40,
     collision_mask = { "item-layer", "object-layer", "player-layer", "water-tile"},
-    collision_box = {{-0.9, -1.0}, {0.9, 0.5}},
+    collision_box = {{-0.9, 0}, {0.9, 0.5}},
     selection_box = {{-1.0, -1.0}, {1.0, 0.5}},
     vehicle_impact_sound =  { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
     pictures =
@@ -24,17 +24,18 @@ sign_entity = {
       filename = "__LogisticsSigns__/graphics/entity/sign.png",
       priority = "extra-high",
       width = 80,
-      height = 60
+      height = 60,
+	  shift = {0, -0.5},
     }
 }
 table.insert(sign_entities, sign_entity)
 
 sign_large_metal_entity = {
-    type = "decorative",
+    type = "simple-entity",
     name = "util-sign-large",
     icon = "__LogisticsSigns__/graphics/icons/sign-large-metal-icon.png",
     flags = {"placeable-neutral"},
-    render_layer = "lower-object",
+    render_layer = "object",
     minable =
     {
         mining_time = 2.5,
@@ -43,7 +44,7 @@ sign_large_metal_entity = {
     },
     max_health = 60,
     collision_mask = { "item-layer", "object-layer", "player-layer", "water-tile"},
-    collision_box = {{-2.1, -1.0}, {2.1, 0.5}},
+    collision_box = {{-2.1, 0}, {2.1, 0.5}},
     selection_box = {{-2.2, -1.0}, {2.2, 0.5}},
     vehicle_impact_sound =  { filename = "__base__/sound/car-metal-impact.ogg", volume = 1.0 },
     pictures =
@@ -51,18 +52,19 @@ sign_large_metal_entity = {
       filename = "__LogisticsSigns__/graphics/entity/sign-large-metal.png",
       priority = "extra-high",
       width = 160,
-      height = 60
+      height = 60,
+	  shift = {0, -0.5},
     }
 }
 
 table.insert(sign_entities, sign_large_metal_entity)
 
 sign_small_entity = {
-   type = "decorative",
+   type = "simple-entity",
    name = "util-sign-small",
    icon = "__LogisticsSigns__/graphics/icons/sign-small-icon.png",
    flags = {"placeable-neutral"},
-   render_layer = "lower-object",
+   render_layer = "object",
    minable = {
       mining_time = 1,
       result = "util-sign-small",
@@ -70,8 +72,8 @@ sign_small_entity = {
    },
    max_health = 40,
    collision_mask = { "item-layer", "object-layer", "player-layer", "water-tile"},
-   collision_box = {{-1.2, -1.0}, {0.2, 0.4}},
-   selection_box = {{-1.3, -1.1}, {0.3, 0.4}},
+   collision_box = {{-0.4, 0}, {0.4, 0.4}},
+   selection_box = {{-0.8, -1.1}, {0.8, 0.4}},
    vehicle_impact_sound = { filename = "__base__/sound/car-wood-impact.ogg", volume = 1.0 },
    pictures =
    {
@@ -79,7 +81,7 @@ sign_small_entity = {
   	 priority = "extra-high",
   	 width = 40,
   	 height = 60,
-  	 shift = {-0.5, 0.0}
+  	 shift = {0, -0.5}
    }
 }
 table.insert(sign_entities, sign_small_entity)
@@ -88,11 +90,13 @@ table.insert(sign_entities, sign_small_entity)
 for i = FIRSTASCII, LASTASCII do
 
 	letter = {
-		type = "decorative",
+		type = "simple-entity",
 		name = "ascii" .. i,
 		flags = {"placeable-off-grid", "not-on-map"},
+		collision_mask = {},
 		selectable_in_game = false,
-		render_layer = "object",
+		max_health = 1000,
+		render_layer = "higher-object-above",
 		pictures =
 		{
 			filename = "__LogisticsSigns__/graphics/entity/fonts.png",
@@ -113,17 +117,20 @@ for i, icon in pairs(ICONS) do
   for _, object in pairs(data.raw[icon]) do
 
     notice_icon = {
-        type = "decorative",
+        type = "simple-entity",
         name = "icon-notice-" .. object.name,
         flags = {"placeable-off-grid", "not-on-map"},
+		collision_mask = {},
         selectable_in_game = false,
-        render_layer = "object",
+        render_layer = "higher-object-above",
+		max_health = 1000,
         pictures =
         {
           filename = object.icon,
           priority = "medium",
           width = 32,
-          height = 32
+          height = 32,
+		  scale = 0.8,
         }
     }
 
