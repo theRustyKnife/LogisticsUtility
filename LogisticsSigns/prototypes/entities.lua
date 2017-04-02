@@ -114,28 +114,37 @@ end
 
 --- ICONS
 for i, icon in pairs(ICONS) do
-  for _, object in pairs(data.raw[icon]) do
+	for _, object in pairs(data.raw[icon]) do
+		local filename = object.icon
+		if not filename and object.icons then
+			for _, v in pairs(object.icons) do
+				filename = v.icon
+				break
+			end
+		end
 
-    notice_icon = {
-        type = "simple-entity",
-        name = "icon-notice-" .. object.name,
-        flags = {"placeable-off-grid", "not-on-map"},
-		collision_mask = {},
-        selectable_in_game = false,
-        render_layer = "higher-object-above",
-		max_health = 1000,
-        pictures =
-        {
-          filename = object.icon,
-          priority = "medium",
-          width = 32,
-          height = 32,
-		  scale = 0.8,
-        }
-    }
+		if filename then
+			notice_icon = {
+				type = "simple-entity",
+				name = "icon-notice-" .. object.name,
+				flags = {"placeable-off-grid", "not-on-map"},
+				collision_mask = {},
+				selectable_in_game = false,
+				render_layer = "higher-object-above",
+				max_health = 1000,
+				pictures =
+				{
+					filename = filename,
+					priority = "medium",
+					width = 32,
+					height = 32,
+					scale = 0.8,
+				}
+			}
 
-    table.insert(sign_entities, notice_icon)
-  end
+			table.insert(sign_entities, notice_icon)
+		end
+	end
 end
 
 data:extend(sign_entities)
